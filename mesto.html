@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    body {font-family: Arial, Helvetica, sans-serif; background-color: #cccccc; text-align:center;}
+    #divPlace {margin: auto; width: 700px; padding: 30px; text-align:center;}
+    #divPlace td{width: 150px; text-align:center;}
+    input[type='text'], input[type='number'] {width: 120px;}
+    #result {margin: auto; width: 700px;}
+    #result td {border: 1px black solid; width: 120px; background-color: #a6a6a6; text-align:center;}
+    #btnFind {background-color:#a6ada8;	-moz-border-radius:28px;	-webkit-border-radius:28px;	border-radius:28px;	border:1px solid #575957;
+    display:inline-block; cursor:pointer;	color:#ffffff;	font-family:Arial;	font-size:17px;	padding:16px 31px;	text-decoration:none;
+    text-shadow:0px 1px 0px #969696;}
+    #btnFind:hover {	background-color:#31382d;}
+    #btnFind:active { position:relative; top:1px;}
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+    <div id="divPlace">
+      <center><table><tr>
+      <td><label>City:</label></td>
+      <td><label>Country:</label></td>
+      <td rowspan="2"><button id="btnFind" onclick="btnFind()">FIND</button></td>
+      </tr><tr>
+      <td><INPUT type="text" id="city" ></td>
+      <td><INPUT type="text" id="country" ></td>
+      </tr></table></center>
+    </div>
+    <div id="result">
+      <table class="tblResult" id="tblResult">
+        <thead>
+      <tr>
+        <td><label>Temperature:</label></td>
+        <td><label>Humidity:</label></td>
+        <td><label>Populaton:</label></td>
+        <td><label>Longitude:</label></td>
+        <td><label>Latitude:</label></td>
+      </tr>
+       </thead>
+       <tbody id="autoContent">
+       </tbody>
+      </table>
+    </div>
+
+    <script>
+    </script>
+
+  </body>
+</html>
