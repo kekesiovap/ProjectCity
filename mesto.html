@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
     body {font-family: Arial, Helvetica, sans-serif; background-color: #cccccc; text-align:center;}
-    #divPlace {margin: auto; width: 700px; padding: 30px; text-align:center;}
-    #divPlace td{width: 150px; text-align:center;}
+    #divLocation {margin: auto; width: 700px; padding: 30px; text-align:center;}
+    #divLocation td{width: 150px; text-align:center;}
     input[type='text'], input[type='number'] {width: 120px;}
     #result {margin: auto; width: 700px;}
-    #result td {border: 1px black solid; width: 120px; background-color: #a6a6a6; text-align:center;}
+    #tblResult.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+    #tblResult.tg td{width: 120px; font-family:Arial, sans-serif;font-size:15px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+    #tblResult.tg th{width: 120px; font-family:Arial, sans-serif;font-size:15px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+    .tg .tg-a2cf{font-weight:bold;font-family:Arial, Helvetica, sans-serif !important;;text-align:center;vertical-align:top}
+    .tg .tg-l77s{font-weight:bold ;font-family:Arial, Helvetica, sans-serif !important;;text-align:center}
     #btnFind {background-color:#a6ada8;	-moz-border-radius:28px;	-webkit-border-radius:28px;	border-radius:28px;	border:1px solid #575957;
     display:inline-block; cursor:pointer;	color:#ffffff;	font-family:Arial;	font-size:17px;	padding:16px 31px;	text-decoration:none;
     text-shadow:0px 1px 0px #969696;}
@@ -17,33 +22,69 @@
   </head>
   <body>
     <div id="wrapper">
-    <div id="divPlace">
+    <div id="divLocation">
       <center><table><tr>
       <td><label>City:</label></td>
       <td><label>Country:</label></td>
       <td rowspan="2"><button id="btnFind" onclick="btnFind()">FIND</button></td>
       </tr><tr>
-      <td><INPUT type="text" id="city" ></td>
-      <td><INPUT type="text" id="country" ></td>
+      <td><INPUT type="text" id="city" placeholder="Enter name of city"></td>
+      <td><INPUT type="text" id="country" placeholder="Enter country code"></td>
       </tr></table></center>
     </div>
     <div id="result">
-      <table class="tblResult" id="tblResult">
+      <center><table class="tg" id="tblResult">
         <thead>
-      <tr>
-        <td><label>Temperature:</label></td>
-        <td><label>Humidity:</label></td>
-        <td><label>Populaton:</label></td>
-        <td><label>Longitude:</label></td>
-        <td><label>Latitude:</label></td>
-      </tr>
-       </thead>
-       <tbody id="autoContent">
-       </tbody>
+          <tr>
+            <th class="tg-l77s">Temperature:</th>
+            <th class="tg-l77s">Description:</th>
+            <th class="tg-l77s">Humidity:</th>
+            <th class="tg-a2cf">Wind speed:</th>
+            <th class="tg-a2cf">Visibility:</th>
+          </tr>
+        </thead>
+        <tbody id="autoContent">
+          <tr>
+            <th><div id="temp"></div></th>
+            <th><div id="descr"></div></th>
+            <th><div id="hum"></div></th>
+            <th><div id="wind"></div></th>
+            <th><div id="vis"></div></th>
+          </tr>
+        </tbody>
       </table>
     </div>
 
-    <script>
+    <script type="text/javascript">
+
+    function btnFind(){
+      let city = document.getElementById('city').value;
+      let country = document.getElementById('country').value;
+      let appid="5b651b8c749865177d8283fcf8271848";
+      let req="http://api.openweathermap.org/data/2.5/weather?";
+      req=req+"q="+city;
+      req=req+","+country;
+      req=req+"&mode=HTML";
+      req=req+"&appid="+appid;
+      console.log(req);
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function()
+      {
+        if (this.readyState == 4 && this.status == 200) {
+        let obj=JSON.parse(this.responseText);
+        document.getElementById("temp").innerHTML=(Math.round((obj.main.temp-273.15)*100)/100) +'°C';
+        document.getElementById("hum").innerHTML=(Math.round((obj.main.humidity)*100)/100)+'%';
+        document.getElementById("descr").innerHTML=(obj.weather[0].description);
+        document.getElementById("wind").innerHTML=(Math.round((obj.wind.speed)*100)/100)+' m/s';
+        document.getElementById("vis").innerHTML=(obj.visibility)+'m';
+            
+        }
+      };
+      xhttp.open("GET", req, true);
+      xhttp.send();
+    }
+        
+
     </script>
 
   </body>
