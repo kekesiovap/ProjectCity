@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+    body {font-family: Arial, Helvetica, sans-serif; background-color: #cccccc; text-align:center; position: relative; background-image: url(background.jpg); background-repeat: repeat; background-size: cover; width: 1280px; height: 640px; margin: 0 auto;}
+    
+        #wrapper {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100%;
+        }
+        
+    input[type='text'], input[type='number'] {width: 70%; display: inline-block;  -webkit-box-sizing: content-box;  -moz-box-sizing: content-box;   box-sizing: content-box;   padding: 10px 20px;   border: 1px solid #b7b7b7;   -webkit-border-radius: 3px;   border-radius: 3px;
+    font: normal normal bold 16px/normal "bad-script", Helvetica, sans-serif;   color: rgba(75,80,81,1);   -o-text-overflow: clip;    text-overflow: clip;
+    background: -webkit-linear-gradient(-90deg, rgba(255,255,255,0.73) 0, rgba(165,165,164,0.55) 100%);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.73) 0, rgba(165,165,164,0.55) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.73) 0, rgba(165,165,164,0.55) 100%);
+    background-position: 50% 50%;
+    -webkit-background-origin: padding-box;  background-origin: padding-box;   -webkit-background-clip: border-box;   background-clip: border-box;   -webkit-background-size: auto auto;  background-size: auto auto;  -webkit-box-shadow: 3px 2px 2px 0 rgba(0,0,0,0.2) inset;  box-shadow: 3px 2px 2px 0 rgba(0,0,0,0.2) inset;  text-shadow: 2px 1px 0 rgba(255,255,255,0.66) ;  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);   -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);  }
+        
+    #btnFind {background-color:#a6ada8;	-moz-border-radius:28px;	-webkit-border-radius:28px;	border-radius:28px;	border:1px solid #575957;
+    display:inline-block; cursor:pointer;	color:#ffffff;	font-family:Arial;	font-size:17px;	padding:16px 31px;	text-decoration:none;
+    text-shadow:0px 1px 0px #969696;}
+    #btnFind:hover {background-color:#31382d;}
+    #btnFind:active {position:relative; top:1px;}
+        
+        #divLocation{
+            margin: 2%;
+            width: 25%;
+            height: 30%;
+            padding: 2%; 
+            text-align: center;
+        }
+        #temp{
+            width: 20%; height: 30%; padding: 3%; 
+            text-align: center;
+            background-image: url(temp.png); background-repeat: no-repeat; background-size: contain; background-position: center;
+        }
+        #descr{
+            width: 20%; height: 30%; padding: 3%;
+            text-align: center;
+            background-image: url(descr.png); background-repeat: no-repeat; background-size: contain; background-position: center;
+        }
+        #hum{
+            width: 30%; height: 40%; padding: 3%;
+            text-align: center;
+            background-image: url(humid.png); background-repeat: no-repeat; background-size: contain; background-position: top center;
+        }
+        #wind{
+            width: 20%; height: 40%; padding: 3%;
+            text-align: center;
+            background-image: url(wind.png); background-repeat: no-repeat; background-size: contain; background-position: center;
+        }
+        #vis{
+            width: 20%; height: 40%; padding: 3%;
+            text-align: center;
+            background-image: url(visib.png); background-repeat: no-repeat; background-size: contain; background-position: center;
+        }
+        
+        #temp:hover, #descr:hover, #hum:hover, #wind:hover, #vis:hover{
+            -webkit-animation:wobble-hor-top 1s both;animation:wobble-hor-top 1s both
+        }
+        
+        #tempText, #descrText, #humText, #windText, #visText {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    border: none;
+    font: normal 25px/normal "Passero One", Helvetica, sans-serif;
+    color: rgba(255,255,255,1);
+    text-align: center;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    text-shadow: 0 1px 0 rgb(204,204,204) , 0 2px 0 rgb(201,201,201) , 0 3px 0 rgb(187,187,187) , 0 4px 0 rgb(185,185,185) , 0 5px 0 rgb(170,170,170) , 0 6px 1px rgba(0,0,0,0.0980392) , 0 0 5px rgba(0,0,0,0.0980392) , 0 1px 3px rgba(0,0,0,0.298039) , 0 3px 5px rgba(0,0,0,0.2) , 0 5px 10px rgba(0,0,0,0.247059) , 0 10px 10px rgba(0,0,0,0.2) , 0 20px 20px rgba(0,0,0,0.14902) ;
+    -webkit-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+        }
+
+        #tempText:hover, #descrText:hover, #humText:hover, #windText:hover, #visText:hover {
+    color: rgba(196,196,196,1);
+    text-shadow: 0 1px 0 rgba(255,255,255,1) , 0 2px 0 rgba(255,255,255,1) , 0 3px 0 rgba(255,255,255,1) , 0 4px 0 rgba(255,255,255,1) , 0 5px 0 rgba(255,255,255,1) , 0 6px 1px rgba(0,0,0,0.0980392) , 0 0 5px rgba(0,0,0,0.0980392) , 0 1px 3px rgba(0,0,0,0.298039) , 0 3px 5px rgba(0,0,0,0.2) , 0 -5px 10px rgba(0,0,0,0.247059) , 0 -7px 10px rgba(0,0,0,0.2) , 0 -15px 20px rgba(0,0,0,0.14902) ;
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+        }
+        
+    #divLocation td{text-align:center;}
+        
+        @-webkit-keyframes wobble-hor-top{0%,100%{-webkit-transform:translateX(0);transform:translateX(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}15%{-webkit-transform:translateX(-30px) rotate(6deg);transform:translateX(-30px) rotate(6deg)}30%{-webkit-transform:translateX(15px) rotate(-6deg);transform:translateX(15px) rotate(-6deg)}45%{-webkit-transform:translateX(-15px) rotate(3.6deg);transform:translateX(-15px) rotate(3.6deg)}60%{-webkit-transform:translateX(9px) rotate(-2.4deg);transform:translateX(9px) rotate(-2.4deg)}75%{-webkit-transform:translateX(-6px) rotate(1.2deg);transform:translateX(-6px) rotate(1.2deg)}}@keyframes wobble-hor-top{0%,100%{-webkit-transform:translateX(0);transform:translateX(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}15%{-webkit-transform:translateX(-30px) rotate(6deg);transform:translateX(-30px) rotate(6deg)}30%{-webkit-transform:translateX(15px) rotate(-6deg);transform:translateX(15px) rotate(-6deg)}45%{-webkit-transform:translateX(-15px) rotate(3.6deg);transform:translateX(-15px) rotate(3.6deg)}60%{-webkit-transform:translateX(9px) rotate(-2.4deg);transform:translateX(9px) rotate(-2.4deg)}75%{-webkit-transform:translateX(-6px) rotate(1.2deg);transform:translateX(-6px) rotate(1.2deg)}}
+        
+        
+    </style>
+  </head>
+  <body>
+      
+    <div id="wrapper">
+        
+      <div id="temp"><div id="tempText"></div></div>
+        
+      <div id="divLocation"><center><img src="logo.png" > <table>
+         <tr>
+          <th><input type="text" id="city" placeholder="Enter city:"></th>
+          <th><input type="text" id="country" placeholder="Enter country:"></th>
+         </tr>
+         <tr>
+          <td colspan="2"><br><button id="btnFind" onclick="btnFind()">FIND</button></td>
+         </tr>
+      </table></center></div>
+        
+      <div id="descr"><div id="descrText"></div></div>
+        
+      <div id="wind"><div id="windText"></div></div>
+        
+      <div id="hum"><br><br><br><div id="humText"></div></div>
+        
+      <div id="vis"><br><div id="visText"></div></div>
+        
+    </div>
+      
+    <script type="text/javascript">
+
+    function btnFind(){
+        let city1 = document.getElementById('city').value;
+        let city=city1;
+        city = encodeURI(city);
+        
+        let country1 = document.getElementById('country').value;
+        let country=country1;
+        country= encodeURI(country);
+        
+      let appid="5b651b8c749865177d8283fcf8271848";
+      let req="http://api.openweathermap.org/data/2.5/weather?";
+      req=req+"q="+city;
+      req=req+","+country;
+      req=req+"&mode=HTML";
+      req=req+"&appid="+appid;
+      console.log(req);
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function()
+      {
+        if (this.readyState == 4 && this.status == 200) {
+        let obj=JSON.parse(this.responseText);
+        document.getElementById("tempText").innerHTML=(Math.round((obj.main.temp-273.15)*100)/100) +'°C';
+        document.getElementById("humText").innerHTML=(Math.round((obj.main.humidity)*100)/100)+'%';
+        document.getElementById("descrText").innerHTML=(obj.weather[0].description);
+        document.getElementById("windText").innerHTML=(Math.round((obj.wind.speed)*100)/100)+' m/s';
+        document.getElementById("visText").innerHTML=(obj.visibility)+'m';
+            
+        }
+      }
+      xhttp.open("GET", req, true);
+      xhttp.send();
+    }
+
+    </script>
+  </body>
+</html>
